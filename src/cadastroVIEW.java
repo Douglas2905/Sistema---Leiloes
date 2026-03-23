@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -140,16 +143,26 @@ public class cadastroVIEW extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastroNomeActionPerformed
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ProdutosDTO produto = new ProdutosDTO();
-        String nome = cadastroNome.getText();
-        String valor = cadastroValor.getText();
-        String status = "A Venda";
-        produto.setNome(nome);
-        produto.setValor(Integer.parseInt(valor));
-        produto.setStatus(status);
-        
-        ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
+        try {
+    ProdutosDTO produto = new ProdutosDTO();
+
+    produto.setNome(cadastroNome.getText());
+    produto.setStatus("A Venda");
+
+    int valorConvertido = Integer.parseInt(cadastroValor.getText());
+    produto.setValor(valorConvertido);
+
+    ProdutosDAO dao = new ProdutosDAO();
+    dao.cadastrarProduto(produto);
+
+    javax.swing.JOptionPane.showMessageDialog(this, "Cadastro realizado com sucesso!");
+
+} catch (NumberFormatException e) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Digite apenas números no valor!");
+} catch (Exception e) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Erro ao salvar no banco!");
+    e.printStackTrace();
+}
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
@@ -187,7 +200,6 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
         /* Create and display the form */
         private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {
-
     try {
         ProdutosDTO produto = new ProdutosDTO();
 
